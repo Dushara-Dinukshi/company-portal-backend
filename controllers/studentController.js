@@ -244,9 +244,163 @@ const applyForInternship = async (req, res) => {
   }
 };
 
+// Update Student Profile
+const updateStudentProfile = async (req, res) => {
+  try {
+    const studentId = req.student._id;
+    const { name, cv } = req.body;
+
+    const updateData = {};
+    if (name) updateData.name = name;
+    if (cv !== undefined) updateData.cv = cv;
+
+    const student = await Student.findByIdAndUpdate(studentId, updateData, { 
+      new: true, 
+      runValidators: true 
+    }).select('-password');
+
+    res.status(200).json({
+      success: true,
+      message: 'Profile updated successfully',
+      data: { student }
+    });
+
+  } catch (error) {
+    console.error('Update profile error:', error);
+    
+    if (error.name === 'ValidationError') {
+      const errors = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({
+        success: false,
+        message: 'Validation error',
+        errors
+      });
+    }
+
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+      error: error.message
+    });
+  }
+};
+
+// Get All Students (Admin only)
+const getAllStudents = async (req, res) => {
+  try {
+    const { page = 1, limit = 10, search } = req.query;
+    const skip = (page - 1) * limit;
+
+    let query = {};
+    if (search) {
+      query.$or = [
+        { name: { $regex: search, $options: 'i' } },
+        { email: { $regex: search, $options: 'i' } }
+      ];
+    }
+
+    const students = await Student.find(query)
+      .select('-password')
+      .populate('appliedInternships.internshipId', 'title company location')
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(parseInt(limit));
+
+    const totalStudents = await Student.countDocuments(query);
+
+    res.status(200).json({
+      success: true,
+      message: 'Students retrieved successfully',
+      data: {
+        students,
+        pagination: {
+          currentPage: parseInt(page),
+          totalPages: Math.ceil(totalStudents / limit),
+          totalStudents
+        }
+      }
+    });
+
+  } catch (error) {
+    console.error('Get all students error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+      error: error.message
+    });
+  }
+};
+
+// Delete Student (Admin only)
+const deleteStudent = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const student = await Student.findByIdAndDelete(id);
+
+    if (!student) {
+      return res.status(404).json({
+        success: false,
+        message: 'Student not found'
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Student deleted successfully'
+    });
+
+  } catch (error) {
+    console.error('Delete student error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+      error: error.message
+    });
+  }
+};
+
+// Get Student Applications
+const getStudentApplications = async (req, res) => {
+  try {
+    const studentId = req.student._id;
+
+    const student = await Student.findById(studentId)
+      .populate('appliedInternships.internshipId', 'title description location duration stipend company')
+      .select('-password');
+
+    if (!student) {
+      return res.status(404).json({
+        success: false,
+        message: 'Student not found'
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Applications retrieved successfully',
+      data: {
+        applications: student.appliedInternships
+      }
+    });
+
+  } catch (error) {
+    console.error('Get applications error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+      error: error.message
+    });
+  }
+};
+
 module.exports = {
   registerStudent,
   loginStudent,
   getStudentProfile,
-  applyForInternship
+  updateStudentProfile,
+  applyForInternship,
+  getStudentApplications,
+  getAllStudents,
+  deleteStudent
 };

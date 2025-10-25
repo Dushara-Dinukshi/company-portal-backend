@@ -1,0 +1,904 @@
+{
+  "client": "Thunder Client",
+  "collectionName": "Company Portal Backend API",
+  "dateExported": "2024-01-15T10:00:00.000Z",
+  "version": "1.1",
+  "folders": [
+    {
+      "id": "health-check",
+      "name": "🏠 Health Check",
+      "containerId": "",
+      "created": "2024-01-15T10:00:00.000Z",
+      "sortNum": 10000
+    },
+    {
+      "id": "student-module",
+      "name": "👨‍🎓 Student Module",
+      "containerId": "",
+      "created": "2024-01-15T10:00:00.000Z",
+      "sortNum": 20000
+    },
+    {
+      "id": "company-module",
+      "name": "🏢 Company Module",
+      "containerId": "",
+      "created": "2024-01-15T10:00:00.000Z",
+      "sortNum": 30000
+    },
+    {
+      "id": "internship-module",
+      "name": "🎓 Internship Module",
+      "containerId": "",
+      "created": "2024-01-15T10:00:00.000Z",
+      "sortNum": 40000
+    },
+    {
+      "id": "admin-module",
+      "name": "👨‍💼 Admin Module",
+      "containerId": "",
+      "created": "2024-01-15T10:00:00.000Z",
+      "sortNum": 50000
+    }
+  ],
+  "requests": [
+    {
+      "id": "health-check",
+      "name": "Health Check",
+      "url": "{{base_url}}/",
+      "method": "GET",
+      "sortNum": 10000,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "folder": "health-check"
+    },
+    {
+      "id": "test-student-api",
+      "name": "Test Student API",
+      "url": "{{base_url}}/api/students/test",
+      "method": "GET",
+      "sortNum": 20000,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "folder": "student-module"
+    },
+    {
+      "id": "register-student",
+      "name": "Register Student",
+      "url": "{{base_url}}/api/students/register",
+      "method": "POST",
+      "sortNum": 20001,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"password\": \"password123\",\n  \"cv\": \"Experienced software developer with 3 years of experience\"\n}",
+        "form": []
+      },
+      "tests": [
+        {
+          "type": "code",
+          "value": "if (res.status === 201) {\n  const response = res.json();\n  thunder.setVar('student_token', response.data.token);\n}"
+        }
+      ],
+      "folder": "student-module"
+    },
+    {
+      "id": "login-student",
+      "name": "Login Student",
+      "url": "{{base_url}}/api/students/login",
+      "method": "POST",
+      "sortNum": 20002,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"john.doe@example.com\",\n  \"password\": \"password123\"\n}",
+        "form": []
+      },
+      "tests": [
+        {
+          "type": "code",
+          "value": "if (res.status === 200) {\n  const response = res.json();\n  thunder.setVar('student_token', response.data.token);\n}"
+        }
+      ],
+      "folder": "student-module"
+    },
+    {
+      "id": "get-student-profile",
+      "name": "Get Student Profile",
+      "url": "{{base_url}}/api/students/profile/:id",
+      "method": "GET",
+      "sortNum": 20003,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [],
+      "params": [
+        {
+          "name": "id",
+          "value": "STUDENT_ID_HERE"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "folder": "student-module"
+    },
+    {
+      "id": "update-student-profile",
+      "name": "Update Student Profile",
+      "url": "{{base_url}}/api/students/profile",
+      "method": "PUT",
+      "sortNum": 20004,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{student_token}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"John Smith\",\n  \"cv\": \"Updated CV with more experience\"\n}",
+        "form": []
+      },
+      "tests": [],
+      "folder": "student-module"
+    },
+    {
+      "id": "get-student-applications",
+      "name": "Get Student Applications",
+      "url": "{{base_url}}/api/students/applications",
+      "method": "GET",
+      "sortNum": 20005,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{student_token}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "folder": "student-module"
+    },
+    {
+      "id": "apply-for-internship",
+      "name": "Apply for Internship",
+      "url": "{{base_url}}/api/students/apply/:internshipId",
+      "method": "POST",
+      "sortNum": 20006,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{student_token}}"
+        }
+      ],
+      "params": [
+        {
+          "name": "internshipId",
+          "value": "INTERNSHIP_ID_HERE"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "folder": "student-module"
+    },
+    {
+      "id": "get-all-students-admin",
+      "name": "Get All Students (Admin)",
+      "url": "{{base_url}}/api/students",
+      "method": "GET",
+      "sortNum": 20007,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{admin_token}}"
+        }
+      ],
+      "params": [
+        {
+          "name": "page",
+          "value": "1"
+        },
+        {
+          "name": "limit",
+          "value": "10"
+        },
+        {
+          "name": "search",
+          "value": "john"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "folder": "student-module"
+    },
+    {
+      "id": "delete-student-admin",
+      "name": "Delete Student (Admin)",
+      "url": "{{base_url}}/api/students/:id",
+      "method": "DELETE",
+      "sortNum": 20008,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{admin_token}}"
+        }
+      ],
+      "params": [
+        {
+          "name": "id",
+          "value": "STUDENT_ID_HERE"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "folder": "student-module"
+    },
+    {
+      "id": "test-company-api",
+      "name": "Test Company API",
+      "url": "{{base_url}}/api/companies/test",
+      "method": "GET",
+      "sortNum": 30000,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "folder": "company-module"
+    },
+    {
+      "id": "register-company",
+      "name": "Register Company",
+      "url": "{{base_url}}/api/companies/register",
+      "method": "POST",
+      "sortNum": 30001,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"Tech Corp\",\n  \"email\": \"contact@techcorp.com\",\n  \"password\": \"password123\",\n  \"address\": \"123 Tech Street, Silicon Valley\",\n  \"telephone\": \"+94712345678\",\n  \"linkedinURL\": \"https://linkedin.com/company/techcorp\",\n  \"biography\": \"A leading technology company\",\n  \"termsAccepted\": true\n}",
+        "form": []
+      },
+      "tests": [
+        {
+          "type": "code",
+          "value": "if (res.status === 201) {\n  const response = res.json();\n  thunder.setVar('company_token', response.data.token);\n}"
+        }
+      ],
+      "folder": "company-module"
+    },
+    {
+      "id": "login-company",
+      "name": "Login Company",
+      "url": "{{base_url}}/api/companies/login",
+      "method": "POST",
+      "sortNum": 30002,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"contact@techcorp.com\",\n  \"password\": \"password123\"\n}",
+        "form": []
+      },
+      "tests": [
+        {
+          "type": "code",
+          "value": "if (res.status === 200) {\n  const response = res.json();\n  thunder.setVar('company_token', response.data.token);\n}"
+        }
+      ],
+      "folder": "company-module"
+    },
+    {
+      "id": "verify-account",
+      "name": "Verify Account",
+      "url": "{{base_url}}/api/companies/verify",
+      "method": "POST",
+      "sortNum": 30003,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"token\": \"{{company_token}}\"\n}",
+        "form": []
+      },
+      "tests": [],
+      "folder": "company-module"
+    },
+    {
+      "id": "reset-password",
+      "name": "Reset Password",
+      "url": "{{base_url}}/api/companies/reset-password",
+      "method": "POST",
+      "sortNum": 30004,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"contact@techcorp.com\",\n  \"newPassword\": \"newpassword123\"\n}",
+        "form": []
+      },
+      "tests": [],
+      "folder": "company-module"
+    },
+    {
+      "id": "update-company-profile",
+      "name": "Update Company Profile",
+      "url": "{{base_url}}/api/companies/profile",
+      "method": "PUT",
+      "sortNum": 30005,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{company_token}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"Tech Corp Updated\",\n  \"address\": \"456 Updated Street, Silicon Valley\",\n  \"telephone\": \"+94712345679\",\n  \"linkedinURL\": \"https://linkedin.com/company/techcorp-updated\",\n  \"biography\": \"Updated company biography\"\n}",
+        "form": []
+      },
+      "tests": [],
+      "folder": "company-module"
+    },
+    {
+      "id": "post-vacancy",
+      "name": "Post Vacancy",
+      "url": "{{base_url}}/api/companies/vacancies",
+      "method": "POST",
+      "sortNum": 30006,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{company_token}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"Software Developer Intern\",\n  \"description\": \"We are looking for a skilled software developer intern\",\n  \"requirements\": \"3+ years experience in JavaScript, Node.js\",\n  \"location\": \"Remote\",\n  \"salary\": \"$80,000 - $100,000\",\n  \"type\": \"internship\"\n}",
+        "form": []
+      },
+      "tests": [],
+      "folder": "company-module"
+    },
+    {
+      "id": "view-company-vacancies",
+      "name": "View Company Vacancies",
+      "url": "{{base_url}}/api/companies/vacancies",
+      "method": "GET",
+      "sortNum": 30007,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{company_token}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "folder": "company-module"
+    },
+    {
+      "id": "edit-vacancy",
+      "name": "Edit Vacancy",
+      "url": "{{base_url}}/api/companies/vacancies/:vacancyId",
+      "method": "PUT",
+      "sortNum": 30008,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{company_token}}"
+        }
+      ],
+      "params": [
+        {
+          "name": "vacancyId",
+          "value": "VACANCY_ID_HERE"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"Senior Software Developer Intern\",\n  \"description\": \"Updated description\",\n  \"salary\": \"$90,000 - $110,000\",\n  \"status\": \"active\"\n}",
+        "form": []
+      },
+      "tests": [],
+      "folder": "company-module"
+    },
+    {
+      "id": "delete-vacancy",
+      "name": "Delete Vacancy",
+      "url": "{{base_url}}/api/companies/vacancies/:vacancyId",
+      "method": "DELETE",
+      "sortNum": 30009,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{company_token}}"
+        }
+      ],
+      "params": [
+        {
+          "name": "vacancyId",
+          "value": "VACANCY_ID_HERE"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "folder": "company-module"
+    },
+    {
+      "id": "test-internship-api",
+      "name": "Test Internship API",
+      "url": "{{base_url}}/api/internships/test",
+      "method": "GET",
+      "sortNum": 40000,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "folder": "internship-module"
+    },
+    {
+      "id": "get-all-internships",
+      "name": "Get All Internships",
+      "url": "{{base_url}}/api/internships",
+      "method": "GET",
+      "sortNum": 40001,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [],
+      "params": [
+        {
+          "name": "page",
+          "value": "1"
+        },
+        {
+          "name": "limit",
+          "value": "10"
+        },
+        {
+          "name": "location",
+          "value": "Remote"
+        },
+        {
+          "name": "search",
+          "value": "developer"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "folder": "internship-module"
+    },
+    {
+      "id": "get-internship-by-id",
+      "name": "Get Internship by ID",
+      "url": "{{base_url}}/api/internships/:id",
+      "method": "GET",
+      "sortNum": 40002,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [],
+      "params": [
+        {
+          "name": "id",
+          "value": "INTERNSHIP_ID_HERE"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "folder": "internship-module"
+    },
+    {
+      "id": "get-internships-by-company",
+      "name": "Get Internships by Company",
+      "url": "{{base_url}}/api/internships/company/:companyId",
+      "method": "GET",
+      "sortNum": 40003,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [],
+      "params": [
+        {
+          "name": "companyId",
+          "value": "COMPANY_ID_HERE"
+        },
+        {
+          "name": "page",
+          "value": "1"
+        },
+        {
+          "name": "limit",
+          "value": "10"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "folder": "internship-module"
+    },
+    {
+      "id": "create-internship",
+      "name": "Create Internship",
+      "url": "{{base_url}}/api/internships",
+      "method": "POST",
+      "sortNum": 40004,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{company_token}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"Full Stack Developer Internship\",\n  \"description\": \"Join our team as a full stack developer intern\",\n  \"company\": \"COMPANY_ID_HERE\",\n  \"location\": \"Colombo, Sri Lanka\",\n  \"duration\": \"6 months\",\n  \"stipend\": \"Rs. 50,000 per month\",\n  \"requirements\": [\"JavaScript\", \"React\", \"Node.js\", \"MongoDB\"]\n}",
+        "form": []
+      },
+      "tests": [],
+      "folder": "internship-module"
+    },
+    {
+      "id": "update-internship",
+      "name": "Update Internship",
+      "url": "{{base_url}}/api/internships/:id",
+      "method": "PUT",
+      "sortNum": 40005,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{company_token}}"
+        }
+      ],
+      "params": [
+        {
+          "name": "id",
+          "value": "INTERNSHIP_ID_HERE"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"Senior Full Stack Developer Internship\",\n  \"description\": \"Updated description for senior position\",\n  \"duration\": \"12 months\",\n  \"stipend\": \"Rs. 75,000 per month\"\n}",
+        "form": []
+      },
+      "tests": [],
+      "folder": "internship-module"
+    },
+    {
+      "id": "delete-internship",
+      "name": "Delete Internship",
+      "url": "{{base_url}}/api/internships/:id",
+      "method": "DELETE",
+      "sortNum": 40006,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{company_token}}"
+        }
+      ],
+      "params": [
+        {
+          "name": "id",
+          "value": "INTERNSHIP_ID_HERE"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "folder": "internship-module"
+    },
+    {
+      "id": "test-admin-api",
+      "name": "Test Admin API",
+      "url": "{{base_url}}/api/admin/test",
+      "method": "GET",
+      "sortNum": 50000,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "folder": "admin-module"
+    },
+    {
+      "id": "register-admin",
+      "name": "Register Admin",
+      "url": "{{base_url}}/api/admin/register",
+      "method": "POST",
+      "sortNum": 50001,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"Admin User\",\n  \"email\": \"admin@companyportal.com\",\n  \"password\": \"adminpassword123\",\n  \"role\": \"super_admin\",\n  \"permissions\": {\n    \"manageUsers\": true,\n    \"manageCategories\": true,\n    \"manageJobs\": true,\n    \"manageSubscriptions\": true,\n    \"viewAnalytics\": true,\n    \"manageNotifications\": true\n  }\n}",
+        "form": []
+      },
+      "tests": [
+        {
+          "type": "code",
+          "value": "if (res.status === 201) {\n  const response = res.json();\n  thunder.setVar('admin_token', response.data.token);\n}"
+        }
+      ],
+      "folder": "admin-module"
+    },
+    {
+      "id": "login-admin",
+      "name": "Login Admin",
+      "url": "{{base_url}}/api/admin/login",
+      "method": "POST",
+      "sortNum": 50002,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"admin@companyportal.com\",\n  \"password\": \"adminpassword123\"\n}",
+        "form": []
+      },
+      "tests": [
+        {
+          "type": "code",
+          "value": "if (res.status === 200) {\n  const response = res.json();\n  thunder.setVar('admin_token', response.data.token);\n}"
+        }
+      ],
+      "folder": "admin-module"
+    },
+    {
+      "id": "get-admin-profile",
+      "name": "Get Admin Profile",
+      "url": "{{base_url}}/api/admin/profile",
+      "method": "GET",
+      "sortNum": 50003,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{admin_token}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "folder": "admin-module"
+    },
+    {
+      "id": "get-analytics",
+      "name": "Get Analytics",
+      "url": "{{base_url}}/api/admin/analytics",
+      "method": "GET",
+      "sortNum": 50004,
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{admin_token}}"
+        }
+      ],
+      "params": [
+        {
+          "name": "period",
+          "value": "30d"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "folder": "admin-module"
+    }
+  ],
+  "environments": [
+    {
+      "id": "default-env",
+      "name": "Default Environment",
+      "data": [
+        {
+          "name": "base_url",
+          "value": "http://localhost:5000"
+        },
+        {
+          "name": "student_token",
+          "value": ""
+        },
+        {
+          "name": "company_token",
+          "value": ""
+        },
+        {
+          "name": "admin_token",
+          "value": ""
+        }
+      ],
+      "created": "2024-01-15T10:00:00.000Z",
+      "modified": "2024-01-15T10:00:00.000Z"
+    }
+  ]
+}

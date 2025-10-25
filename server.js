@@ -15,6 +15,7 @@ require('./models/Internship');
 const studentRoutes = require('./routes/studentRoutes');
 const companyRoutes = require('./routes/companyRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const internshipRoutes = require('./routes/internshipRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -45,6 +46,7 @@ connectDB();
 app.use('/api/students', studentRoutes);
 app.use('/api/companies', companyRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/internships', internshipRoutes);
 
 // Health check route
 app.get('/', (req, res) => {
